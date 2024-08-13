@@ -7,7 +7,7 @@ jobs:
       - name: Get repo
         uses: actions/checkout@v3
       - name: Install dependencies
-        run: nmp install  
+        run: npm install  
       - name: Run test
         run: npm test
   
