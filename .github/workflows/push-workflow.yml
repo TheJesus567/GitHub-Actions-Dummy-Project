@@ -1,7 +1,7 @@
-name: first-workflow
+name: push-workflow
 on: push
 jobs:
-  first-job:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Get repo
