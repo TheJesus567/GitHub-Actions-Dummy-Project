@@ -1,0 +1,39 @@
+name: push-workflow
+on: push
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repo
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install
+      - name: Run lint
+        run: |
+          echo "Linting..."
+          npm lint
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repo
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install
+      - name: Run Tests
+        run: |
+          echo "Running unit tests..."
+          npm test
+
+  deploy:
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repo
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install  
+      - name: Run deploy
+        run: |
+          echo "Deploying..."
+          npm build
+  
