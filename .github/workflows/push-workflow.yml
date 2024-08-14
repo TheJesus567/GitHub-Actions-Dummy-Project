@@ -35,5 +35,5 @@ jobs:
       - name: Run deploy
         run: |
           echo "Deploying..."
-          npm build
+          npm run build
   
