@@ -1,5 +1,8 @@
 name: issue-workflow
-on: issues
+on: 
+  issues:
+    branches:
+      - dev-v2
 jobs:
   output:
     runs-on: ubuntu-latest
