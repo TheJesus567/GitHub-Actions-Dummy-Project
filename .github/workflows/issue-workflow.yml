@@ -1,11 +1,10 @@
 name: issue-workflow
 on: 
   issues:
-    branches:
-      - dev-v2
+    types: [opened, edited, closed]
 jobs:
   output:
     runs-on: ubuntu-latest
     steps:
       - name: show output
-        run: echo ${{ github }}
+        run: echo ${{  github.event.issue.number }}
