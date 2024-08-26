@@ -54,10 +54,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: my-artifact
+      - name: Output content
+        run: ls
       - name: Run deploy
         run: |
           echo "Deploying..."
-          ls
 
 
   
