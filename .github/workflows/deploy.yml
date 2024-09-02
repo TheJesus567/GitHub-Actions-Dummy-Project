@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-      - dev
+      - dev-v3
 jobs:
   test:
     environment: test
