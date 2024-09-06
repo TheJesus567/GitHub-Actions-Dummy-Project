@@ -6,8 +6,15 @@ jobs:
      steps:
       - name: Get repo
         uses: actions/checkout@v3
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node-modules
+          key: node-modules-${{ hashFiles('**/package-lock.json') }}      
       - name: Install dependencies
-        run: npm install
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
       - name: Run build
         run: |
           echo "Building project..."
@@ -23,9 +30,15 @@ jobs:
     steps:
       - name: Get repo
         uses: actions/checkout@v3
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node-modules
+          key: node-modules-${{ hashFiles('**/package-lock.json') }}      
       - name: Install dependencies
-        run: npm install
-      - name: Run lint
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
         run: |
           echo "Linting..."
           npm run lint
@@ -35,21 +48,35 @@ jobs:
     steps:
       - name: Get repo
         uses: actions/checkout@v3
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node-modules
+          key: node-modules-${{ hashFiles('**/package-lock.json') }}      
       - name: Install dependencies
-        run: npm install
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
       - name: Run Tests
         run: |
           echo "Running unit tests..."
           npm test
 
   deploy:
-    needs: [lint, test]
+    needs: [build, test]
     runs-on: ubuntu-latest
     steps:
       - name: Get repo
         uses: actions/checkout@v3
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node-modules
+          key: node-modules-${{ hashFiles('**/package-lock.json') }}      
       - name: Install dependencies
-        run: npm install  
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
       - name: Download build artifact
         uses: actions/download-artifact@v3
         with:
