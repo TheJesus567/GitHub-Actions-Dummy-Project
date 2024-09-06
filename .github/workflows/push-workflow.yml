@@ -39,6 +39,7 @@ jobs:
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
+      - name: Run lint
         run: |
           echo "Linting..."
           npm run lint
